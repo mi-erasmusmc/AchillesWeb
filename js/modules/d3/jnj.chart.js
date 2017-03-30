@@ -207,9 +207,10 @@
 		}
 	}
 
-	module.histogram = function () {
+	module.histogram = function (report) {
 		var self = this;
 		self.xScale = {}; // shared xScale for histogram and boxplot
+		var altLayout = (report=='drug' || report=='procedure' || report=='measurement' || report=='observation')
 
 		self.drawBoxplot = function (g, data, width, height) {
 			var boxplot = g,
@@ -296,12 +297,26 @@
 				chart = d3.select(target + " svg");
 			}
 
-			var tip = d3.tip()
+			var tip = new Object();
+			if (altLayout) {
+				tip = d3.tip()
+				.attr('class', 'd3-tip')
+				.offset([-10, 0])
+				.html(function (d) {
+					if ((options.xLabel) && (options.yLabel)) {
+						return '<table class="boxplotValues">' + '<tr><td>' + options.xLabel + ':</td><td>' + module.util.formatInteger(d.x) + '</td></tr>' + '<tr><td>' + options.yLabel + ':</td><td>' + module.util.formatInteger(d.y) + '</td></tr>' + '</table>';
+					} else {
+						return '<table class="boxplotValues">' + '<tr><td>X:</td><td>' + module.util.formatInteger(d.x) + '</td></tr>' + '<tr><td>Y:</td><td>' + module.util.formatInteger(d.y) + '</td></tr>' + '</table>';
+					}
+				})
+			} else {
+				tip = d3.tip()
 				.attr('class', 'd3-tip')
 				.offset([-10, 0])
 				.html(function (d) {
 					return module.util.formatInteger(d.y);
 				})
+			}
 			chart.call(tip);
 
 			var xAxisLabelHeight = 0;
@@ -342,11 +357,12 @@
 			var height = h - options.margin.top - options.margin.bottom - xAxisLabelHeight;
 
 			// define the intial scale (range will be updated after we determine the final dimensions)
+			var altOffset = 0.5 * altLayout;
 			var x = self.xScale = d3.scale.linear()
 				.domain(options.xDomain || [d3.min(data, function (d) {
-					return d.x;
+					return d.x + altOffset;
 				}), d3.max(data, function (d) {
-					return d.x + d.dx;
+					return d.x + d.dx - altOffset;
 				})])
 				.range([0, width]);
 
@@ -409,7 +425,7 @@
 				.enter().append("g")
 				.attr("class", "bar")
 				.attr("transform", function (d) {
-					return "translate(" + x(d.x) + "," + y(d.y) + ")";
+					return "translate(" + x(d.x - altOffset) + "," + y(d.y) + ")";
 				})
 				.on('mouseover', tip.show)
 				.on('mouseout', tip.hide)

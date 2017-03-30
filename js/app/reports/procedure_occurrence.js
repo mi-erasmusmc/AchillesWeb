@@ -57,7 +57,7 @@
 							});
 
 							var prevalenceByMonth = new jnj_chart.line();
-							prevalenceByMonth.render(byMonthSeries, "#reportProcedureOccurrences #procedurePrevalenceByMonth", 1000, 300, {
+							prevalenceByMonth.render(byMonthSeries, "#reportProcedureOccurrences #procedurePrevalenceByMonth", 500, 300, {
 								xScale: d3.time.scale().domain(d3.extent(byMonthSeries[0].values, function (d) {
 									return d.xValue;
 								})),
@@ -65,6 +65,30 @@
 								tickFormat: d3.time.format("%Y"),
 								xLabel: "Date",
 								yLabel: "Prevalence per 1000 People"
+							});
+							// frequency distribution
+							// HISTOGRAM
+							var frequencyHistogram = new Object();
+							var frequencyHistData = new Object();
+							var totalCnt = 0;
+							for (var i in data.PROCEDURE_FREQUENCY_DISTRIBUTION.Y_NUM_PERSONS) { totalCnt += data.PROCEDURE_FREQUENCY_DISTRIBUTION.Y_NUM_PERSONS[i]; }
+							frequencyHistData.COUNT_VALUE = data.PROCEDURE_FREQUENCY_DISTRIBUTION.Y_NUM_PERSONS.slice();
+							frequencyHistData.INTERVAL_INDEX = data.PROCEDURE_FREQUENCY_DISTRIBUTION.X_COUNT.slice();
+							frequencyHistData.PERCENT_VALUE = data.PROCEDURE_FREQUENCY_DISTRIBUTION.Y_NUM_PERSONS.map(function(value) { return (value/totalCnt)*100;});
+							frequencyHistogram.DATA = frequencyHistData;
+							frequencyHistogram.MIN = 0;
+							frequencyHistogram.MAX = frequencyHistogram.INTERVALS = 10;
+							frequencyHistogram.INTERVAL_SIZE = 1;
+							var yScaleMax = (Math.floor((Math.max.apply(null, data.PROCEDURE_FREQUENCY_DISTRIBUTION.Y_NUM_PERSONS) + 5) / 10) + 1) * 10;
+							var freqHistData = common.mapHistogram(frequencyHistogram);
+							var freqHistChart = new jnj_chart.histogram('procedure');
+							freqHistChart.render(freqHistData, "#reportProcedureOccurrences #procedureFrequencyDistribution", 500, 300, {
+								xFormat: d3.format('d'),
+								xScale: d3.scale.linear().domain([1,10]),
+								yScale: d3.scale.linear().domain([0,100]),
+								yMax: yScaleMax,
+								xLabel: 'Count (\'x\' or more procedures)',
+								yLabel: '% of total number of persons'
 							});
 
 							// condition type visualization
