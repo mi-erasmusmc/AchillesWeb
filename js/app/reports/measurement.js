@@ -90,7 +90,7 @@ define(["jquery", "d3", "jnj/chart", "common", "datatables", "datatables-colvis"
 					xScale: d3.scale.linear().domain([1,10]),
 					yScale: d3.scale.linear().domain([0,100]),
 					yMax: yScaleMax,
-					xLabel: 'Count (\'x\' or more measurementss)',
+					xLabel: 'Count (\'x\' or more measurements)',
 					yLabel: '% of total number of persons'
 				});
 
