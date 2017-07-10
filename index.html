@@ -77,6 +77,7 @@
 							<li onclick="updateReport('observations');">Observations</li>
 							<li onclick="updateReport('drugeras');">Drug Eras</li>
 							<li onclick="updateReport('drugs');">Drug Exposures</li>
+							<li onclick="updateReport('drugsource');">Drug Source</li>
 							<li onclick="updateReport('procedures');">Procedures</li>
 							<li onclick="updateReport('visits');">Visits</li>
 							<li onclick="updateReport('death');">Death</li>
@@ -558,6 +559,146 @@
 						</div>
 						<div class="panel-body">
 							<div class="drilldown" id="drugsByType"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="reportDrugSource" class="report">
+		<div class="reportTitle">Drug Source Report</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Drug Prevalence
+					</div>
+					<div class="panel-body">
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs" id="myTab">
+								<li class="active"><a href="#drugsource_treemap_panel">Treemap</a>
+								</li>
+								<li><a href="#drugsource_table_panel">Table</a>
+								</li>
+							</ul>
+							<div id='content' class="tab-content">
+								<div class="tab-pane active" id="drugsource_treemap_panel">
+									<div id="treemap_container">
+										<div class="treemap_zoomtarget"></div>
+									</div>
+
+									<div class="treemap_legend">Box Size: Prevalence, Color: Records per Person (Blue to Orange = Low to High), Use Ctrl-Click to Zoom, Alt-Click to Reset Zoom</div>
+								</div>
+								<div class="tab-pane" id="drugsource_table_panel">
+									<table id="drugsource_table" class="display">
+										<thead>
+											<tr>
+												<th>Concept Id</th>
+												<th>ATC 1</th>
+												<th>ATC 3</th>
+												<th>ATC 5</th>
+												<th>ATC Code</th>
+												<th>Name</th>
+												<th>Person Count</th>
+												<th>Prevalence</th>
+												<th>Records per Person</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="reportDrugSourceDrilldown" class="hidden reportDrilldown">
+			<div id="drugSourceDrilldownTitle" class="reportTitle"></div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div id="panelDrugPrevalence" class="panel panel-default">
+						<div class="panel-heading">
+							Drug Prevalence
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="trellisLinePlotDrugSource"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div id="panelDrugPrevalenceByMonth" class="panel panel-default">
+						<div class="panel-heading">
+							Drug Exposure Prevalence by Month
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="drugPrevalenceByMonthDrugSource"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">	<!-- MOD_X - start->>	-->
+					<div id="panelDrugFrequencyDistribution" class="panel panel-default">
+						<div class="panel-heading">
+							Frequency Distribution
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="drugFrequencyDistributionDrugSource"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<div id="panelAgeAtFirstDiagnosis" class="panel panel-default">
+						<div class="panel-heading">
+							Age at First Exposure
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="ageAtFirstExposureDrugSource"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div id="panelDaysSupplyDistribution" class="panel panel-default">
+						<div class="panel-heading">
+							Days Supply
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="daysSupplyDistributionDrugSource"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div id="panelQuantityDistribution" class="panel panel-default">
+						<div class="panel-heading">
+							Quantity
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="quantityDistributionDrugSource"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div id="panelRefillsDistribution" class="panel panel-default">
+						<div class="panel-heading">
+							Refills
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="refillsDistributionDrugSource"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div id="panelDrugsByType" class="panel panel-default">
+						<div class="panel-heading">
+							Drugs by Type
+						</div>
+						<div class="panel-body">
+							<div class="drilldown" id="drugsByTypeDrugSource"></div>
 						</div>
 					</div>
 				</div>

@@ -3,6 +3,7 @@ define(function (require) {
 	var reportConditionOccurrence = require("./reports/condition_occurrence");
 	var reportConditionEra = require("./reports/condition_era");
 	var reportDrugExposure = require("./reports/drug_exposure");
+	var reportDrugSource = require("./reports/drug_source");
 	var reportProcedureOccurrence = require("./reports/procedure_occurrence");
 	var reportDataDensity = require("./reports/data_density");
 	var reportObservation = require("./reports/observation");
@@ -16,6 +17,7 @@ define(function (require) {
 		ConditionOccurrence: reportConditionOccurrence,
 		ConditionEra: reportConditionEra,
 		DrugExposure: reportDrugExposure,
+		DrugSource: reportDrugSource,
 		ProcedureOccurrence: reportProcedureOccurrence,
 		DataDensity: reportDataDensity,
 		Observation: reportObservation,
